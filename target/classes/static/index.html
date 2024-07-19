@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Person Details Form</title>
+</head>
+<body>
+    <form id="personForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="occupation">Occupation:</label>
+        <input type="text" id="occupation" name="occupation" required><br><br>
+
+        <label for="hobby">Hobby:</label>
+        <input type="text" id="hobby" name="hobby" required><br><br>
+
+        <label for="currentCompany">Current Company:</label>
+        <input type="text" id="currentCompany" name="currentCompany" required><br><br>
+
+        <label for="dreamJob">Dream Job:</label>
+        <input type="text" id="dreamJob" name="dreamJob" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        document.getElementById('personForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            const person = {
+                name: document.getElementById('name').value,
+                occupation: document.getElementById('occupation').value,
+                hobby: document.getElementById('hobby').value,
+                currentCompany: document.getElementById('currentCompany').value,
+                dreamJob: document.getElementById('dreamJob').value
+            };
+
+            fetch('http://localhost:8080/api/person/add', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(person)
+            })
+            .then(response => response.json())
+            .then(data => console.log('Success:', data))
+            .catch((error) => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>
